@@ -36,7 +36,7 @@ def check_gkylzero(conf):
     conf.env.LIB_gkylzero = libList.split(',')
          
     conf.start_msg('Checking for gkylzero')
-    conf.check(header_name='gkylzero.h', features='cxx cxxprogram', use="gkylzero SUPERLU OPENBLAS", mandatory=True)
+    conf.check(header_name='gkylzero.h', features='cxx cxxprogram', use="gkylzero SUPERLU", mandatory=True) # removed OPENBLAS
     conf.end_msg("Found gkylzero")
     conf.env['gkylzero_FOUND'] = True
     return 1

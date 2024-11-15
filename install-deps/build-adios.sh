@@ -3,24 +3,37 @@
 source ./build-opts.sh
 
 # Install prefix
-PREFIX=$GKYLSOFT/adios2-2.9.2
+PREFIX=$GKYL/adios2
 
 # delete old checkout and builds
-rm -rf adios2-2.9.2.tar* adios2-2.9.2
+rm -rf adios2-2.10.1.tar* adios2
 
-curl -L https://github.com/ornladios/ADIOS2/archive/refs/tags/v2.9.2.tar.gz > adios2-2.9.2.tar.gz
-gunzip adios2-2.9.2.tar.gz
-mkdir adios2-2.9.2
-tar -xvf adios2-2.9.2.tar -C adios2-2.9.2 --strip-components 1
+curl -L https://github.com/ornladios/ADIOS2/archive/refs/tags/v2.10.1.tar.gz > adios2-2.10.1.tar.gz
+gunzip adios2-2.10.1.tar.gz
+mkdir adios2
+tar -xvf adios2-2.10.1.tar -C adios2 --strip-components 1
 
-cd adios2-2.9.2
+cd adios2
 mkdir build
 cd build
 
-CC=$MPICC CXX=$MPICXX cmake ../ -DCMAKE_C_FLAGS="-g -O3 -fPIC" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_TESTING=OFF -DADIOS2_BUILD_EXAMPLES=OFF -DADIOS2_USE_Fortran=OFF -DADIOS2_USE_HDF5=OFF -DADIOS2_USE_Python=OFF -DBUILD_SHARED_LIBS=ON -D CMAKE_C_COMPILER=$MPICC -D CMAKE_CXX_COMPILER=$MPICXX
+CC=$MPICC CXX=$MPICXX cmake ../ \
+-DCMAKE_C_FLAGS="-g -O3 -fPIC" \
+-DCMAKE_BUILD_TYPE=Release \
+-DCMAKE_INSTALL_PREFIX=$PREFIX \
+-DBUILD_TESTING=OFF \
+-DADIOS2_BUILD_EXAMPLES=OFF \
+-DADIOS2_USE_Fortran=OFF \
+-DADIOS2_USE_HDF5=OFF \
+-DADIOS2_USE_Python=OFF \
+-DBUILD_SHARED_LIBS=ON \
+-DCMAKE_C_COMPILER=$MPICC \
+-DCMAKE_CXX_COMPILER=$MPICXX
 
-make -j 32 VERBOSE=1
+make -j 16 VERBOSE=1
 make install
 
 # soft-link
-ln -sfn $PREFIX $GKYLSOFT/adios2
+ln -sfn $PREFIX $GKYL/adios2
+
+

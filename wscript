@@ -25,8 +25,8 @@ from waflib.Options import options
 
 def options(opt):
     opt.load('compiler_c compiler_cxx') 
-    opt.load('gkyl luajit mpi adios sqlite3 cutools nccl gkylzero superlu openblas',
-             tooldir='waf_tools')
+    opt.load('gkyl luajit mpi adios sqlite3 cutools nccl gkylzero superlu',
+             tooldir='waf_tools') # removed openblas
 
 def configure(conf):
     r"""Configure Gkyl build"""
@@ -42,7 +42,7 @@ def configure(conf):
     conf.check_cutools()
     conf.check_nccl()
     conf.check_superlu()
-    conf.check_openblas()
+    # conf.check_openblas()
     conf.check_gkylzero()
 
     # standard install location for dependencies
@@ -238,7 +238,7 @@ def buildExec(bld):
         bld.env.SHLIB_MARKER = '-Wl,-Bdynamic,--no-as-needed'
 
     # list of objects to use
-    useList = 'lib datastruct eq unit comm updater tool proto basis grid gkylzero LUAJIT ADIOS MPI SUPERLU OPENBLAS M DL'
+    useList = 'lib datastruct eq unit comm updater tool proto basis grid gkylzero LUAJIT ADIOS MPI SUPERLU M DL' # removed OPENBLAS
     if bld.env['USE_SQLITE']:
         useList = ' sqlite3 ' + useList
     if bld.env['CUTOOLS_FOUND']:

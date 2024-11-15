@@ -1,13 +1,19 @@
 #!/bin/bash
 
 # Defaults
-PREFIX=$HOME/gkylsoft
+PREFIX=$HOME/Desktop/PROJECT_DR_YAN/gkyl
+
+# Updated build options for macOS with specific clang and Homebrew MPI
+CC=/usr/bin/clang
+CXX=/usr/bin/clang++
+MPICC=/opt/homebrew/bin/mpicc
+MPICXX=/opt/homebrew/bin/mpicxx
 
 # default build options
-CC=gcc
-CXX=g++
-MPICC=mpicc
-MPICXX=mpicxx
+#CC=gcc
+#CXX=g++
+#MPICC=mpicc
+#MPICXX=mpicxx
 
 # by default, don't build anything. will check later to see if things
 # should be installed.

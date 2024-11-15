@@ -25,22 +25,22 @@ def check_superlu(conf):
     if conf.options.superluIncDir:
         conf.env.INCLUDES_SUPERLU = conf.options.superluIncDir
     else:
-        conf.env.INCLUDES_SUPERLU = conf.options.gkylDepsDir+'/superlu/include'
+        conf.env.INCLUDES_SUPERLU = conf.options.gkylDepsDir+'/superlu_mt-4.0.0/include'
 
     if conf.options.superluLibDir:
         #conf.env.STLIBPATH_SUPERLU = conf.options.superluLibDir
         conf.env.STLIBPATH_SUPERLU = conf.options.superluLibDir.split(',')
     else:
-        conf.env.STLIBPATH_SUPERLU = conf.options.gkylDepsDir+'/superlu/lib'
+        conf.env.STLIBPATH_SUPERLU = conf.options.gkylDepsDir+'/superlu_mt-4.0.0/lib'
 
-    conf.env.STLIB_SUPERLU = ["superlu"]
+    conf.env.STLIB_SUPERLU = ["superlu_mt"]
 
     if conf.options.superluLinkLibs:
         libList = conf.options.superluLinkLibs
         conf.env.append_value('STLIB_SUPERLU', libList.split(','))
          
     conf.start_msg('Checking for SUPERLU')
-    conf.check(header_name='slu_ddefs.h', features='cxx cxxprogram', use="SUPERLU", mandatory=True)
+    conf.check(header_name='slu_mt_ddefs.h', features='cxx cxxprogram', use="SUPERLU", mandatory=True)
     conf.end_msg("Found SUPERLU")
     conf.env['SUPERLU_FOUND'] = True
     return 1
